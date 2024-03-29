@@ -8,16 +8,41 @@
 
 <html>
 <head>
-<meta charset="UTF-8">
-<title>구매 목록조회</title>
+	<title>구매 목록조회</title>
 
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
-
-<script type="text/javascript">
-	function fncGetUserList() {
-		document.detailForm.submit();
-	}
-</script>
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+       body > div.container{
+        	border: 3px solid #D6CDB7;
+            margin-top: 100px;
+        }
+    </style>
+    
+     <!--  ///////////////////////// JavaScript ////////////////////////// -->
+	<script type="text/javascript">
+	
+		function fncGetUserList() {
+			document.detailForm.submit();
+		}
+	
+		$(function(){
+			
+			$('a').on("click", function(){ //메인으로 돌아가기
+				self.location = "../main.jsp";
+			});
+			
+		})
+	</script>
+	
 </head>
 
 <body bgcolor="#ffffff" text="#000000">

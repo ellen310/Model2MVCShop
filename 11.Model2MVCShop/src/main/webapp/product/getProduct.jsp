@@ -56,7 +56,7 @@
 	
 		<div class="page-header">
 	       <h3 class=" text-info">상품상세조회</h3>
-	       <h5 class="text-muted">빨리사요 <strong class="text-danger">품절직전</strong>이에요!!.</h5>
+	       <h5 class="text-muted">빨리사요 <strong class="text-primary">품절직전</strong>이에요!!.</h5>
 	    </div>
 	
 		<div class="row">

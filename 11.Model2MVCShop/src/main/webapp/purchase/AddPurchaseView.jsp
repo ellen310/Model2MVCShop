@@ -59,12 +59,12 @@
 		$('#divyDate').datepicker({dateFormat: 'yy-mm-dd'});
 		
 		
-		$('a:last').on("click", function(){
+		$('a:last').on("click", function(){ //취소
 			$('form')[0].reset();
 		});
 		
 		
-		$('button:last').on("click", function(){
+		$('button:last').on("click", function(){ //구매
 			fncAddPurchase();
 		});
 		
@@ -110,13 +110,14 @@
 		    <label for="prodNo" class="col-sm-offset-1 col-sm-3 control-label">상품번호</label>
 		    <div class="col-sm-3">
 		      <h3 type="prodNo" class="form-control" id="prodNo" name="prodNo" readonly>${product.prodNo}</h3>
+		      <input type="hidden" name=prodNo value="${product.prodNo}"/>
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="prodName" class="col-sm-offset-1 col-sm-3 control-label">상품명</label>
 		    <div class="col-sm-3">
-		      <h3 type="prodName" class="form-control" id="prodName" name="prodName" readonly>${product.prodNo}</h3>
+		      <h3 type="prodName" class="form-control" id="prodName" name="prodName" readonly>${product.prodName}</h3>
 		    </div>
 		  </div>
 		  
@@ -147,15 +148,14 @@
 		      <h3 type="regDate" class="form-control" id="regDate" name="regDate" readonly>${product.regDate}</h3>
 		    </div>
 		  </div>
-		  
+		    
 		  <div class="form-group">
 		    <label for="buyer" class="col-sm-offset-1 col-sm-3 control-label" >구매자아이디</label>
 		    <div class="col-sm-3">
 		      <h3 type="buyer" class="form-control" id="buyer" name="buyer" readonly>${user.userId}</h3>
-		      <input type="hidden" name="buyer" value="${user.userId}" />
 		    </div>
 		  </div>
-		  
+		
 		  <div class="form-group">
 		    <label for="price" class="selectpicker col-sm-offset-1 col-sm-3 control-label">결제방식</label>
 		    <select name="paymentOption" class="ct_input_g" style="width: 100px; height: 19px" maxLength="20">
@@ -165,6 +165,7 @@
 		  </div>
 		  
 		  
+		
 		  <div class="form-group">
 		    <label for="couponOption" class="col-sm-offset-1 col-sm-3 control-label">쿠폰선택</label>
 		    <select	name="couponOption"		class="ct_input_g" style="width: 100px; height: 19px" maxLength="20"  onchange="change(this.value)">
@@ -190,7 +191,7 @@
 		  <div class="form-group">
 		    <label for="receiverPhone" class="col-sm-offset-1 col-sm-3 control-label">수령자연락처</label>
 		    <div class="col-sm-3">
-		      <input type="text" class="form-control" id="receiverPhone" name="receiverPhone" value="${user.phone}">
+		      <input type="text" class="form-control" id="receiverPhone" name="receiverPhone" value="${purchase.receiverPhone}">
 		    </div>
 		  </div>
 		  
@@ -198,7 +199,7 @@
 		  <div class="form-group">
 		    <label for="divyAddr" class="col-sm-offset-1 col-sm-3 control-label">수령자주소</label>
 		    <div class="col-sm-3">
-		      <input type="text" class="form-control" id="divyAddr" name="divyAddr" value="${user.addr}">
+		      <input type="text" class="form-control" id="divyAddr" name="divyAddr" placeholder="수령자주소">
 		    </div>
 		  </div>
 		  
@@ -209,14 +210,14 @@
 		    </div>
 		  </div>
 		  
-		  
+		
 		  <div class="form-group">
 		    <label for="divyDate" class="col-sm-offset-1 col-sm-3 control-label">배송희망일자</label>
 		    <div class="col-sm-3">
 		      <input type="divyDate" class="form-control" id="divyDate" name="divyDate" placeholder="배송희망일자" >
 		    </div>
 		  </div>
-		 
+		  
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-3 text-center">

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,19 +65,20 @@ public class PurchaseController {
 	
 	//@RequestMapping("/addPurchase.do")
 	@RequestMapping("addPurchase")
-	public String addPurchase(@ModelAttribute("purchase")Purchase purchase, HttpServletRequest request) throws Exception {
+	public String addPurchase(@ModelAttribute("purchase")Purchase purchase, @RequestParam String prodNo, HttpServletRequest request) throws Exception {
+		
 		System.out.println("Controller:: /addPurchase");
 		
-		System.out.println(purchase);
-		
-		purchase.setPurchaseProd( productService.getProduct(Integer.parseInt(request.getParameter("prod_no"))) );
-		
+		purchase.setPurchaseProd( productService.getProduct(Integer.parseInt(prodNo)) );
 		purchase.setBuyer( userService.getUser( ((User)request.getSession().getAttribute("user")).getUserId() ) );
 		purchase.setTranCode("1"); //1: 구매완료/재고없음, 2: 배송중, 3: 배송완료
 		purchaseService.addPurchase(purchase);
 
 		return "forward:/purchase/AddPurchase.jsp";
 	}
+	
+	
+	
 	
 	
 	//@RequestMapping("/addPurchaseView.do")
