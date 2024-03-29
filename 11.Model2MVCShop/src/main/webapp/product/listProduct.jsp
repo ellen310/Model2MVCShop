@@ -242,7 +242,7 @@
 							        	
 											<c:when test="${fn:trim(productTranList[i].TRAN_STATUS_CODE) eq '1'}">
 												<c:if test="${menu eq 'manage'}">
-													구매완료 | <a href="/purchase/updateTranCode?tranNo=${fn:trim(productTranList[status.index].TRAN_NO)}&tranCode=2&menu=${menu}&currentPage=${resultPage.currentPage}">배송하기</a>   
+													구매완료 | <a href="/purchase/updateTranCode?tranNo=${fn:trim(productTranList[i].TRAN_NO)}&tranCode=2&menu=${menu}&currentPage=${resultPage.currentPage}">배송하기</a>   
 												</c:if>
 												<c:if test="${menu eq 'search'}">
 													재고없음  
