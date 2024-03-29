@@ -100,7 +100,8 @@
 											FROM users, transaction
 											WHERE buyer_id = user_id AND buyer_id=#{userId}		) inner_table
 						WHERE ROWNUM &lt;= #{search.endRowNum} )
-		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} 
+		WHERE row_seq BETWEEN #{search.startRowNum} AND #{search.endRowNum} ORDER BY tran_no DESC
+		
 	 </select>
 	 	<!--  위 두번째 subQuery 의  
 	 			WHERE ROWNUM &lt;= #{endRowNum} ) 는

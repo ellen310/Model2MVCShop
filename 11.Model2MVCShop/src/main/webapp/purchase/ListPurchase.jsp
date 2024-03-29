@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC_KR"
+    pageEncoding="EUC_KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
     
@@ -8,9 +8,9 @@
 
 <html>
 <head>
-	<title>êµ¬ë§¤ ëª©ë¡ì¡°íšŒ</title>
+	<title>±¸¸Å ¸ñ·ÏÁ¶È¸</title>
 
-	<meta charset="UTF-8"> 
+	<meta charset="EUC_KR"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
@@ -29,14 +29,20 @@
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
-		function fncGetUserList() {
-			document.detailForm.submit();
+		
+		function fncGetUserList(currentPage) {
+			$("#currentPage").val(currentPage)
+			$("form").attr("method" , "POST").attr("action" , "/purchase/listPurchase").submit();
 		}
 	
 		$(function(){
 			
-			$('a').on("click", function(){ //ë©”ì¸ìœ¼ë¡œ ëŒì•„ê°€ê¸°
+			$('a').on("click", function(){ //¸ŞÀÎÀ¸·Î µ¹¾Æ°¡±â
 				self.location = "../main.jsp";
+			});
+			
+			$('.tranRecord').on("click", function(){ //±¸¸Å³»¿ª ¼öÁ¤
+				self.location = "/purchase/updatePurchaseView?tranNo="+$(this).attr("data-value");
 			});
 			
 		})
@@ -50,19 +56,19 @@
 	<jsp:include page="/layout/toolbar.jsp" />
    	<!-- ToolBar End /////////////////////////////////////-->
 	
-	<!--  í™”ë©´êµ¬ì„± div Start /////////////////////////////////////-->
+	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
 	<div class="container">
 	
 		<div class="page-header text-info">
-	       <h3>êµ¬ë§¤ëª©ë¡ì¡°íšŒ</h3>
+	       <h3>±¸¸Å¸ñ·ÏÁ¶È¸</h3>
 	    </div>
 	    
-	    <!-- table ìœ„ìª½ ê²€ìƒ‰ Start /////////////////////////////////////-->
+	    <!-- table À§ÂÊ °Ë»ö Start /////////////////////////////////////-->
 	    <div class="row">
 	    
 		    <div class="col-md-6 text-left">
 		    	<p class="text-primary">
-		    		ì „ì²´  ${resultPage.totalCount } ê±´ìˆ˜, í˜„ì¬ ${resultPage.currentPage}  í˜ì´ì§€
+		    		ÀüÃ¼  ${resultPage.totalCount } °Ç¼ö, ÇöÀç ${resultPage.currentPage}  ÆäÀÌÁö
 		    	</p>
 		    </div>
 		    
@@ -71,27 +77,27 @@
 			    
 				  <div class="form-group">
 				    <select class="form-control" name="searchCondition" >
-						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>íšŒì›ID</option>
-						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>íšŒì›ëª…</option>
+						<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>È¸¿øID</option>
+						<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>È¸¿ø¸í</option>
 					</select>
 				  </div>
 				  
 				  <div class="form-group">
-				    <label class="sr-only" for="searchKeyword">ê²€ìƒ‰ì–´</label>
-				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="ê²€ìƒ‰ì–´"
+				    <label class="sr-only" for="searchKeyword">°Ë»ö¾î</label>
+				    <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="°Ë»ö¾î"
 				    			 value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
 				  </div>
 				  
-				  <button type="button" class="btn btn-default">ê²€ìƒ‰</button>
+				  <button type="button" class="btn btn-default">°Ë»ö</button>
 				  
-				  <!-- PageNavigation ì„ íƒ í˜ì´ì§€ ê°’ì„ ë³´ë‚´ëŠ” ë¶€ë¶„ -->
+				  <!-- PageNavigation ¼±ÅÃ ÆäÀÌÁö °ªÀ» º¸³»´Â ºÎºĞ -->
 				  <input type="hidden" id="currentPage" name="currentPage" value=""/>
 				  
 				</form>
 	    	</div>
 	    	
 		</div>
-		<!-- table ìœ„ìª½ ê²€ìƒ‰ Start /////////////////////////////////////-->
+		<!-- table À§ÂÊ °Ë»ö Start /////////////////////////////////////-->
 		
 		
       <!--  table Start /////////////////////////////////////-->
@@ -100,11 +106,11 @@
         <thead>
           <tr>
             <th align="center">No</th>
-            <th align="left" >íšŒì› ID</th>
-            <th align="left">íšŒì›ëª…</th>
-            <th align="left">ìˆ˜ë ¹ìì „í™”ë²ˆí˜¸</th>
-            <th align="left">ë°°ì†¡í˜„í™©</th>
-            <th align="left">ì •ë³´ìˆ˜ì •</th>
+            <th align="left" >È¸¿ø ID</th>
+            <th align="left">È¸¿ø¸í</th>
+            <th align="left">¼ö·ÉÀÚÀüÈ­¹øÈ£</th>
+            <th align="left">¹è¼ÛÇöÈ²</th>
+            <th align="left">Á¤º¸¼öÁ¤</th>
           </tr>
         </thead>
        
@@ -113,36 +119,30 @@
 		  <c:set var="i" value="0" />
 		  <c:forEach var="purchase" items="${list}">
 			<c:set var="i" value="${ i+1 }" />
-			<tr>
+			<tr class="tranRecord" data-value="${purchase.tranNo}">
 			  <td align="center">${ i }</td>
-			  <td align="left"  title="Click : êµ¬ë§¤ì •ë³´ í™•ì¸">${purchase.buyer.userId}</td>
+			  <td align="left"  title="Click : ±¸¸ÅÁ¤º¸ È®ÀÎ">${purchase.buyer.userId}</td>
 			  <td align="left">${purchase.buyer.userName}</td>
 			  <td align="left">${purchase.buyer.phone}</td>
 			  <td align="left">
-						í˜„ì¬
 						<c:choose>
 							<c:when test="${fn:trim(purchase.tranCode) eq '1'}">
-								 êµ¬ë§¤ì™„ë£Œ(ë°°ì†¡ì „) 
+								 ±¸¸Å¿Ï·á(¹è¼ÛÀü) 
 							</c:when>
 							<c:when test="${fn:trim(purchase.tranCode) eq '2'}">
-								 ë°°ì†¡ì¤‘ 
+								 ¹è¼ÛÁß 
 							</c:when>
 							<c:when test="${fn:trim(purchase.tranCode) eq '3'}">
-								 ë°°ì†¡ì™„ë£Œ 
+								 ¹è¼Û¿Ï·á 
 							</c:when>
 						</c:choose>
-						ìƒíƒœì…ë‹ˆë‹¤.
-			<!-- 	<i class="glyphicon glyphicon-ok" id= "${user.userId}"></i>
-			  	<input type="hidden" value="${user.userId}">    -->  
 			  </td>
 			  
-			  <td align="left">
-				<c:if test="${fn:trim(purchase.tranCode) eq '2'}">
-					<a href="/purchase/updateTranCode?tranNo=${purchase.tranNo}&tranCode=3&menu=search&currentPage=${resultPage.currentPage}">ë¬¼ê±´ë„ì°©</a>    
-				</c:if>
-			  </td>
-			  
-			  
+			   <td align="left">
+			 	  <c:if test="${fn:trim(purchase.tranCode) eq '2'}">
+			   		 <a href="/purchase/updateTranCode?tranNo=${purchase.tranNo}&tranCode=3&menu=search&currentPage=${resultPage.currentPage}">¹°°ÇµµÂø</a>    
+				   </c:if>
+			   </td>
 			</tr>
           </c:forEach>
         
@@ -152,47 +152,13 @@
 	  <!--  table End /////////////////////////////////////-->
 	  
  	</div>
- 	<!--  í™”ë©´êµ¬ì„± div End /////////////////////////////////////-->
+ 	<!--  È­¸é±¸¼º div End /////////////////////////////////////-->
  	
  	
  	<!-- PageNavigation Start... -->
 	<jsp:include page="../common/pageNavigator_new.jsp"/>
 	<!-- PageNavigation End... -->
 
-
-
-<!-- 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-	<tr>
-		<td align="center">
-		
-		  <input type="hidden" id="currentPage" name="currentPage" value=""/>
-		  
-		  	<c:if test="${resultPage.currentPage > resultPage.pageUnit}">
-		  		<a href="/purchase/listPurchase?currentPage=${resultPage.currentPage-1}">â—€ ì´ì „</a>
-		  	</c:if>
-		  	
-		  	<c:forEach var="i" begin="${resultPage.beginUnitPage}" end="${resultPage.endUnitPage}">
-		  		<c:if test="${resultPage.currentPage eq i}">
-		  			<U><B><a href="/purchase/listPurchase?currentPage=${i}">${i}</a></B></U>	
-		  		</c:if>
-		  		<c:if test="${resultPage.currentPage ne i}">
-		  			<a href="/purchase/listPurchase?currentPage=${i}">${i}</a>
-		  		</c:if>
-		  	
-		  	</c:forEach>
-		  
-		  	<c:if test="${resultPage.endUnitPage < resultPage.maxPage}">
-		  		<a href="/purchase/listPurchase?currentPage=${resultPage.endUnitPage+1}">ë‹¤ìŒ â–¶</a>
-		  	</c:if>
-		  	
-		  	
-			
-    	</td>
-	</tr>
-</table>
-
- -->
 
 </body>
 </html>
