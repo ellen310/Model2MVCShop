@@ -1,183 +1,145 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page contentType="text/html; charset=EUC_KR"%>
 
 <%@ page import="com.model2.mvc.service.domain.*" %>
 
 
 <html>
 <head>
-<title>ìƒí’ˆì •ë³´ìˆ˜ì •</title>
+<title>»óÇ°Á¤º¸¼öÁ¤</title>
 
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
-
-<script type="text/javascript" src="../javascript/calendar.js">
-</script>
-
-<script type="text/javascript">
-
-function fncUpdateProduct(){
-	//Form ìœ íš¨ì„± ê²€ì¦
- 	var name = document.detailForm.prodName.value;
-	var detail = document.detailForm.prodDetail.value;
-	var manuDate = document.detailForm.manuDate.value;
-	var price = document.detailForm.price.value;
-
-	if(name == null || name.length<1){
-		alert("ìƒí’ˆëª…ì€ ë°˜ë“œì‹œ ì…ë ¥í•˜ì—¬ì•¼ í•©ë‹ˆë‹¤.");
-		return;
+<meta charset="EUC_KR">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	
+   <!-- Bootstrap Dropdown Hover CSS -->
+   <link href="/css/animate.min.css" rel="stylesheet">
+   <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+   <!-- Bootstrap Dropdown Hover JS -->
+   <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+   
+   
+   <!-- jQuery UI toolTip »ç¿ë CSS-->
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <!-- jQuery UI toolTip »ç¿ë JS-->
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<!--  ///////////////////////// CSS ////////////////////////// -->
+	<style>
+	  body {
+            padding-top : 50px;
+        }
+    </style>
+    
+     <!--  ///////////////////////// JavaScript ////////////////////////// -->
+	<script type="text/javascript">
+	
+	
+	function fncUpdateProduct(){
+		document.detailForm.action='/product/updateProduct';
+		document.detailForm.submit();
 	}
-	if(detail == null || detail.length<1){
-		alert("ìƒí’ˆìƒì„¸ì •ë³´ëŠ” ë°˜ë“œì‹œ ì…ë ¥í•˜ì—¬ì•¼ í•©ë‹ˆë‹¤.");
-		return;
-	}
-	if(manuDate == null || manuDate.length<1){
-		alert("ì œì¡°ì¼ìëŠ” ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
-		return;
-	}
-	if(price == null || price.length<1){
-		alert("ê°€ê²©ì€ ë°˜ë“œì‹œ ì…ë ¥í•˜ì…”ì•¼ í•©ë‹ˆë‹¤.");
-		return;
-	}
-		
-	document.detailForm.action='/product/updateProduct';
-	document.detailForm.submit();
-}
 
-</script>
+	
+	$(function(){
+			
+			$('#divyDate').datepicker({dateFormat: 'yy-mm-dd'});
+			
+			$('button:last').on("click", function(){ //¼öÁ¤
+				$("form").attr("action" , "/purchase/updatePurchase?tranNo=${purchase.tranNo}").submit();
+			});
+			
+			$('a:last').on("click", function(){ //Ãë¼Ò
+				$('form')[0].reset();
+			});
+			
+	})
+	</script>
+
 </head>
 
-<body bgcolor="#ffffff" text="#000000">
+<body>
 
-<form name="detailForm" method="post" >
+	
+	<!-- ToolBar Start /////////////////////////////////////-->
+	<div class="navbar  navbar-default">
+        <div class="container">
+        	<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
+   		</div>
+   	</div>
+   	<!-- ToolBar End /////////////////////////////////////-->
+   	
 
-<input type="hidden" name="prodNo" value="${product.prodNo}"/>
+	<!--  È­¸é±¸¼º div Start /////////////////////////////////////-->
+	<div class="container">
+		<h1 class="bg-primary text-center">»óÇ°¼öÁ¤</h1>
+		
+		<!-- form Start /////////////////////////////////////-->
+		<form class="form-horizontal">
+			
+		  <input type="hidden" name=prodNo value="${product.prodNo}"/>
+		  
+		  <div class="form-group">
+		    <label for="buyerId" class="col-sm-offset-1 col-sm-3 control-label">»óÇ°¸í</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="prodName" name="prodName" value="${product.prodName}">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <label for="prodDetail" class="col-sm-offset-1 col-sm-3 control-label">»óÇ°»ó¼¼Á¤º¸</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="prodDetail" name="prodDetail" value="${product.prodDetail}">
+		    </div>
+		  </div>
+		  
+		  
+		  <div class="form-group">
+		    <label for="manuDate" class="col-sm-offset-1 col-sm-3 control-label">Á¦Á¶ÀÏÀÚ</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="manuDate" name="manuDate" value="${purchase.divyDate}">
+		    </div>
+		  </div>
+		  
+			
+		  <div class="form-group">
+		    <label for="price" class="col-sm-offset-1 col-sm-3 control-label">°¡°İ</label>
+		    <div class="col-sm-4">
+		      <input type="text" class="form-control" id="price" name="price" value="${product.price}">
+		    </div>
+		  </div>
+		  
+		  
+		  <div class="form-group">
+		    <label for="imageFile" class="col-sm-offset-1 col-sm-3 control-label">»óÇ°ÀÌ¹ÌÁö</label>
+		    <div class="col-sm-4">
+		      <input type="file" class="form-control" id="imageFile" name="imageFile" value="${purchase.divyDate}">
+		    </div>
+		  </div>
+		  
+		  <div class="form-group">
+		    <div class="col-sm-offset-4  col-sm-4 text-center">
+		      <button type="button" class="btn btn-primary"  >¼ö &nbsp;Á¤</button>
+			  <a class="btn btn-primary btn" href="#" role="button">Ãë&nbsp;¼Ò</a>
+		    </div>
+		  </div>
+		</form>
+		<!-- form End /////////////////////////////////////-->
+		  
+	<!--  È­¸é±¸¼º div End /////////////////////////////////////-->	
+	</div>
 
-<table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
-	<tr>
-		<td width="15" height="37">
-			<img src="/images/ct_ttl_img01.gif" width="15" height="37"/>
-		</td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="93%" class="ct_ttl01">ìƒí’ˆìˆ˜ì •</td>
-					<td width="20%" align="right">&nbsp;</td>
-				</tr>
-			</table>
-		</td>
-		<td width="12" height="37">
-			<img src="/images/ct_ttl_img03.gif" width="12" height="37"/>
-		</td>
-	</tr>
-</table>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 13px;">
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			ìƒí’ˆëª… <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="105">
-						<input 	type="text" name="prodName" class="ct_input_g" 
-										style="width: 100px; height: 19px" maxLength="20" value="${product.prodName}">
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			ìƒí’ˆìƒì„¸ì •ë³´ <img	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input type="text" name="prodDetail" value="${product.prodDetail}" class="ct_input_g" 
-						style="width: 100px; height: 19px" maxLength="10"	minLength="6">
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			ì œì¡°ì¼ì <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input type="text" readonly="readonly" name="manuDate" value="${product.manuDate}"	
-						class="ct_input_g" style="width: 100px; height: 19px" maxLength="10" minLength="6">&nbsp;
-						<img 	src="../images/ct_icon_date.gif" width="15" height="15" 
-									onclick="show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value)" />
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">
-			ê°€ê²© <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-		</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input type="text" name="price" value="${product.price}"
-						class="ct_input_g" style="width: 100px; height: 19px" maxLength="50"/>&nbsp;ì›
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-	<tr>
-		<td width="104" class="ct_write">ìƒí’ˆì´ë¯¸ì§€</td>
-		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<input	type="file" name="fileName" class="ct_input_g" 
-						style="width: 200px; height: 19px" maxLength="13" value="../images/uploadFiles/${product.fileName}"/>
-		</td>
-	</tr>
-	<tr>
-		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
-	</tr>
-</table>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0"	style="margin-top: 10px;">
-	<tr>
-		<td width="53%"></td>
-		<td align="right">
-			<table border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="17" height="23">
-						<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01"	style="padding-top: 3px;">
-						<a href="javascript:fncUpdateProduct();">ìˆ˜ì •</a>
-					</td>
-					<td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-					</td>
-					<td width="30"></td>
-					<td width="17" height="23">
-						<img src="/images/ct_btnbg01.gif"width="17" height="23"/>
-					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-						<a href="javascript:history.go(-1)">ì·¨ì†Œ</a>
-					</td>
-					<td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
-</form>
+
+
+
+
 
 </body>
 </html>
