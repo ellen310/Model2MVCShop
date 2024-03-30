@@ -72,7 +72,7 @@
 	<select  id="getProductList"  parameterType="search"	resultMap="productSelectMap">
 	  	SELECT *
 	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
-	  					FROM		(	SELECT product.prod_no, prod_name, price, reg_date, tran_status_code, tran_no
+	  					FROM		(	SELECT product.prod_no, prod_name, price, reg_date, image_file, tran_status_code, tran_no
 	  									FROM product, transaction WHERE product.prod_no = transaction.prod_no(+)
 	  									 <choose>
 										 	 <when test="searchCondition == 0 and searchKeyword !=''">

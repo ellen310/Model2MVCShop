@@ -1,10 +1,12 @@
 package com.model2.mvc.web.product;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -47,35 +50,31 @@ public class ProductController {
 	private int pageUnit;
 	
 	
-	///Method
-	//@RequestMapping("/addProduct.do")   //파일시스템 추가 전
-//	@RequestMapping(value="addProduct")
-//	public String addProduct(@ModelAttribute("product") Product product) throws Exception {
-//		
-//		System.out.println("product/addProduct");
-//		productService.addProduct(product);
-//		return "forward:/product/addProduct.jsp";
-//		
-//	}//end of addProduct
 	
-	
-	
-	//@RequestMapping("/addProduct.do")
 	@RequestMapping(value="addProduct")
-	public String addProduct(@ModelAttribute("product") Product product) throws Exception {
-		
-		
-		
-		
+	public String addProduct(@ModelAttribute("product") Product product, 
+								@RequestParam("imageFile") MultipartFile multipartFile) throws Exception {
 		System.out.println("product/addProduct");
+
+		if(!multipartFile.isEmpty()) {
+			
+			String path = "C:\\Users\\bitcamp\\git\\11Model2MVCShop\\11.Model2MVCShop\\src\\main\\webapp\\images\\uploadFiles";
+			
+			String randomUUID = UUID.randomUUID().toString(); //.replace("-", "")
+			String fileName = randomUUID + multipartFile.getOriginalFilename();
+			
+			multipartFile.transferTo( new File(path, fileName));
+			product.setFileName(fileName);
+		}
+		
 		productService.addProduct(product);
 		return "forward:/product/addProduct.jsp";
+		
 	}//end of addProduct
 	
 	
 	
 	
-	//@RequestMapping("/updateProductView.do")
 	@RequestMapping(value="updateProductView")
 	public String updateProductView() throws Exception{
 		
@@ -88,7 +87,6 @@ public class ProductController {
 	
 	
 	
-	//@RequestMapping("/updateProduct.do")
 	@RequestMapping(value="updateProduct")
 	public String updateProduct( @ModelAttribute("product") Product product) throws Exception{
 
@@ -101,7 +99,6 @@ public class ProductController {
 		
 	}//end of updateProduct
 	
-	//@RequestMapping("/getProduct.do")
 	@RequestMapping(value="getProduct")
 	public String getProduct(@RequestParam("prodNo") int prodNo, @RequestParam("menu") String menu, 
 								HttpServletRequest request,HttpServletResponse response ,Model model) throws Exception {
@@ -144,7 +141,6 @@ public class ProductController {
 	
 	
 	
-	//@RequestMapping("/listProduct.do")
 	@RequestMapping(value="listProduct")
 	public String listProduct( @ModelAttribute("search") Search search , @RequestParam String menu, Model model , HttpServletRequest request) throws Exception{
 		

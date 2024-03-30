@@ -86,40 +86,40 @@
 		<h1 class="bg-primary text-center">판매 상품 등록</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
-		<form class="form-horizontal">
+		<form class="form-horizontal" method="POST" enctype="multipart/form-data">
 		
 		  <div class="form-group">
 		    <label for="prodName" class="col-sm-offset-1 col-sm-3 control-label">상품명</label>
 		    <div class="col-sm-4">
-		      <input type="prodName" class="form-control" id="prodName" name="prodName" placeholder="상품명">
+		      <input type="text" class="form-control" id="prodName" name="prodName" placeholder="상품명">
 		    </div>
 		  </div>
 		  
 		   <div class="form-group">
 		    <label for="prodDetail" class="col-sm-offset-1 col-sm-3 control-label">상품상세정보</label>
 		    <div class="col-sm-4">
-		      <input type="prodDetail" class="form-control" id="prodDetail" name="prodDetail" placeholder="상품상세정보">
+		      <input type="text" class="form-control" id="prodDetail" name="prodDetail" placeholder="상품상세정보">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="manuDate" class="col-sm-offset-1 col-sm-3 control-label">제조일자</label>
 		    <div class="col-sm-4">
-		      <input type="manuDate" class="form-control" id="manuDate" name="manuDate" placeholder="제조일자" >
+		      <input type="text" class="form-control" id="manuDate" name="manuDate" placeholder="제조일자" >
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="price" class="col-sm-offset-1 col-sm-3 control-label">가격</label>
 		    <div class="col-sm-4">
-		      <input type="price" class="form-control" id="price" name="price" placeholder="가격">
+		      <input type="text" class="form-control" id="price" name="price" placeholder="가격">
 		    </div>
 		  </div>
 		  
 		  <div class="form-group">
 		    <label for="imageFile" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
 		    <div class="col-sm-4">
-		      <input type="imageFile" class="form-control" id="imageFile" name="imageFile" placeholder="상품이미지">
+		      <input type="file" class="form-control" id="imageFile" name="imageFile" placeholder="상품이미지">
 		    </div>
 		  </div>
 		  

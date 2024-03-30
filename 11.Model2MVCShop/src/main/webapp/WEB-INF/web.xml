@@ -49,6 +49,12 @@
 		    </init-param>
 		    
 		    <load-on-startup>1</load-on-startup>
+		    
+		     <multipart-config>
+		        <max-file-size>209715200</max-file-size>
+		        <max-request-size>209715200</max-request-size>
+		        <file-size-threshold>204800</file-size-threshold>
+		    </multipart-config>
   </servlet>
   
 	<!-- 	URI : / 형식  Servlet Mapping -->
