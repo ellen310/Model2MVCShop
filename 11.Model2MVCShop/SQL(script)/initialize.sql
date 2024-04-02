@@ -11,6 +11,14 @@ CREATE SEQUENCE seq_product_prod_no		 	INCREMENT BY 1 START WITH 10000;
 CREATE SEQUENCE seq_transaction_tran_no	INCREMENT BY 1 START WITH 10000;
 
 
+CREATE TABLE coupons ( 
+	coupon_name 			VARCHAR2(30)	NOT NULL,
+	discount 		NUMBER(10)	NOT NULL,
+	user_id 	VARCHAR2(20),	
+	PRIMARY KEY(coupon_name)
+);
+
+
 CREATE TABLE users ( 
 	user_id 			VARCHAR2(20)	NOT NULL,
 	user_name 	VARCHAR2(50)	NOT NULL,

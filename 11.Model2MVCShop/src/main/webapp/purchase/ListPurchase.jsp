@@ -29,7 +29,6 @@
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
-		
 		function fncGetUserList(currentPage) {
 			$("#currentPage").val(currentPage)
 			$("form").attr("method" , "POST").attr("action" , "/purchase/listPurchase").submit();
@@ -44,7 +43,6 @@
 			$('.tranRecord').on("click", function(){ //구매내역 수정
 				self.location = "/purchase/updatePurchaseView?tranNo="+$(this).attr("data-value");
 			});
-			
 		})
 	</script>
 	

@@ -1,6 +1,4 @@
-<%@ page contentType="text/html; charset=EUC_KR"%>
-
-<%@ page import="com.model2.mvc.service.domain.*" %>
+<%@ page language="java" contentType="text/html; charset=EUC_KR" pageEncoding="EUC_KR"%>
 
 
 <html>
@@ -51,7 +49,7 @@
 			$('#divyDate').datepicker({dateFormat: 'yy-mm-dd'});
 			
 			$('button:last').on("click", function(){ //수정
-				$("form").attr("action" , "/purchase/updatePurchase?tranNo=${purchase.tranNo}").submit();
+				$("form").attr("action" , "/product/updateProduct?prodNo=${product.prodNo}").submit();
 			});
 			
 			$('a:last').on("click", function(){ //취소
@@ -77,15 +75,16 @@
 
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
-		<h1 class="bg-primary text-center">상품수정</h1>
+		<h1 class="bg-primary text-center">상품 수정</h1>
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal">
 			
 		  <input type="hidden" name=prodNo value="${product.prodNo}"/>
+		  <input type="hidden" name=prodNo value="${product.prodNo}"/>
 		  
 		  <div class="form-group">
-		    <label for="buyerId" class="col-sm-offset-1 col-sm-3 control-label">상품명</label>
+		    <label for="prodName" class="col-sm-offset-1 col-sm-3 control-label">상품명</label>
 		    <div class="col-sm-4">
 		      <input type="text" class="form-control" id="prodName" name="prodName" value="${product.prodName}">
 		    </div>
@@ -102,7 +101,7 @@
 		  <div class="form-group">
 		    <label for="manuDate" class="col-sm-offset-1 col-sm-3 control-label">제조일자</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="manuDate" name="manuDate" value="${purchase.divyDate}">
+		      <input type="text" class="form-control" id="manuDate" name="manuDate" value="${product.manuDate}">
 		    </div>
 		  </div>
 		  
@@ -118,7 +117,7 @@
 		  <div class="form-group">
 		    <label for="imageFile" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
 		    <div class="col-sm-4">
-		      <input type="file" class="form-control" id="imageFile" name="imageFile" value="${purchase.divyDate}">
+		      <input type="file" class="form-control" id="imageFile" name="imageFile" value="${product.fileName}">
 		    </div>
 		  </div>
 		  
