@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <%@ page pageEncoding="EUC-KR"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 
@@ -87,6 +88,7 @@
 
 			$("input:hidden[name='phone']").val( value );
 			
+			alert("가입되었습니다. 가입한 정보로 로그인하세요.")
 			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
 		}
 		
@@ -169,21 +171,33 @@
 	<!--  화면구성 div Start /////////////////////////////////////-->
 	<div class="container">
 	
-		<h1 class="bg-primary text-center">회 원 가 입</h1>
+	  <c:if test="${userInfo.id eq null}">
+		 <h1 class="bg-primary text-center">회 원 가 입</h1>
+	  </c:if>
+	  
+	  <c:if test="${userInfo.id ne null}">
+		 <h1 class="bg-primary text-center">카카오로 회원가입</h1>
+	  </c:if>
+		
 		
 		<!-- form Start /////////////////////////////////////-->
 		<form class="form-horizontal">
 		
 		  <div class="form-group">
-		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아 이 디</label>
+		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label" >아 이 디</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="userId" name="userId" placeholder="중복확인하세요"  readonly>
+		      <input type="text" class="form-control" id="userId" name="userId" value="${userInfo.id}"  readonly>
 		       <span id="helpBlock" class="help-block">
-		      	<strong class="text-danger">입력전 중복확인 부터..</strong>
+		       <c:if test="${userInfo.id eq null}">
+		       		<strong class="text-danger">입력전 중복확인 부터..</strong>
+		       </c:if>
 		      </span>
 		    </div>
 		    <div class="col-sm-3">
-		      <button type="button" class="btn btn-info">중복확인</button>
+		      <c:if test="${userInfo.id eq null}">
+		       		<button type="button" class="btn btn-info">중복확인</button>
+		       </c:if>
+		      
 		    </div>
 		  </div>
 		  
@@ -204,7 +218,9 @@
 		  <div class="form-group">
 		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label">이름</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="userName" name="userName" placeholder="회원이름">
+		    
+		    
+		      <input type="text" class="form-control" id="userName" name="userName" value="${userInfo.nickname}">
 		    </div>
 		  </div>
 		  

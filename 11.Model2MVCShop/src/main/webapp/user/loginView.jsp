@@ -64,6 +64,16 @@
 			});
 		});
 		
+		
+		
+		$( function() {
+				
+			$("#loginWithKakao").on("click", function(){
+				document.location = "https://kauth.kakao.com/oauth/authorize?client_id=	e63e290b8b7712c5d19b6279f529cacf&redirect_uri=http://localhost:8080/user/login/kakao/authorization&response_type=code";
+			});
+			
+		});	
+		
 	</script>		
 	
 </head>
@@ -115,6 +125,9 @@
 					      <button type="button" class="btn btn-primary"  >로 &nbsp;그 &nbsp;인</button>
 					      <a class="btn btn-primary btn" href="#" role="button">회 &nbsp;원 &nbsp;가 &nbsp;입</a>
 					    </div>
+					    
+					    <img id="loginWithKakao" src= "../images/kakao_login_medium_narrow.png"/>
+					    
 					  </div>
 			
 					</form>
