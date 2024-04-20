@@ -24,13 +24,20 @@ public class User {
 	// JSON ==> Domain Object  Binding을 위해 추가된 부분
 	private String regDateString;
 
-	
+	private boolean active; 
 	
 	///Constructor
 	public User(){
 	}
 	
 	///Method 
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	public boolean isActive() {
+		return active;
+	}
+	
 	public String getUserId() {
 		return userId;
 	}
