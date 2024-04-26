@@ -102,10 +102,10 @@ public class UserRestController {
 		
 		if( user.getPassword().equals(dbUser.getPassword())){
 			//session.setAttribute("user", dbUser);
-			user.setActive(true);
+			dbUser.setActive(true);
 		}
 		
-		return user;
+		return dbUser;
 	}
 	
 	
@@ -113,6 +113,7 @@ public class UserRestController {
 	/////////////////////////////////////////
 	//카카오 로그인
 
+	/*
 	//인가코드 받기 (카카오 로그인시 / 카카오 로그인 세션 있을시)
 	@RequestMapping( value="login/kakao/authorization", method=RequestMethod.GET )
 	public Map loginWithKakaoAuthorization(@RequestParam(required = false) String code, HttpSession session, Model model) throws Exception{
@@ -130,6 +131,7 @@ public class UserRestController {
 			//model.addAttribute("id", map.get("id"));
 			System.out.println("userInfo: "+model.getAttribute("userInfo"));
 			map.put("active", "false");
+			//액티브는 true인데 아이디가 null이라면 회원가입페이지로 이동하게하면되지.
 			return  map;//"forward:/user/addUserView";
 		}
 		
@@ -189,6 +191,6 @@ public class UserRestController {
 		
 		return map;
 	}
-	
+	*/
 	
 }
