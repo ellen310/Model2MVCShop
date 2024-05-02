@@ -32,7 +32,7 @@
 		$(function(){
 			
 			$('a').on("click", function(){ //메인으로 돌아가기
-				self.location = "../main.jsp";
+				self.location = "http://192.168.0.56:3000";
 			});
 			
 		})

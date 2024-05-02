@@ -173,7 +173,7 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="thumbnail">
-							 <img src="\images\uploadFiles\AHlbAAAAug1vsgAA.jpg" alt="...">
+<img src="/images/uploadFiles/${product.fileName}" alt="...">
 						</div>     
 					</div>
 				</div>

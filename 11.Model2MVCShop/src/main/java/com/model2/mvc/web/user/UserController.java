@@ -70,7 +70,8 @@ public class UserController {
 		//Business Logic
 		userService.addUser(user);
 		
-		return "redirect:/user/loginView.jsp";
+		//return "redirect:/user/loginView.jsp";
+		return "redirect:http://192.168.0.56:3000/Logon";
 	}
 	
 
@@ -226,13 +227,16 @@ public class UserController {
 		
 		if(dbUser!=null) { //이 유저가 카카오 id로 가입한 적이 있는 유저라면 바로 로그인
 			session.setAttribute("user", dbUser);
-			return "redirect:http://localhost:3000/logon/"+map.get("id")+"/user"; //url파라미터로 user정보를 같이 내려보낸다. 카카오 가입 유저는 role이 무조건 user로 고정.
+			//return "redirect:http://localhost:3000/logon/"+map.get("id")+"/user"; //url파라미터로 user정보를 같이 내려보낸다. 카카오 가입 유저는 role이 무조건 user로 고정.
+			return "redirect:http://192.168.0.56:3000/logon/"+map.get("id")+"/user"; //url파라미터로 user정보를 같이 내려보낸다. 카카오 가입 유저는 role이 무조건 user로 고정.
 		}else {
 			model.addAttribute("userInfo", map);
 			model.addAttribute("id", map.get("id"));
 			System.out.println("뭐야?"+model.getAttribute("userInfo"));
-			return "redirect:http://localhost:3000/user/addUser";
+			//return "forward:http://192.168.0.56:8080/user/addUser";
+			return "forward:/user/addUserView.jsp";
 		}
+		
 		
 		
 	}
@@ -245,7 +249,7 @@ public class UserController {
 		String url = "https://kauth.kakao.com/oauth/token";
 		String grant_type = "authorization_code";
 		String client_id = "e63e290b8b7712c5d19b6279f529cacf";
-		String redirect_uri = "http://localhost:8080/user/login/kakao/authorization";
+		String redirect_uri = "http://192.168.0.56:8080/user/login/kakao/authorization";
 		
 		
 		/////////////////////////////////////////////////////////REQUEST
