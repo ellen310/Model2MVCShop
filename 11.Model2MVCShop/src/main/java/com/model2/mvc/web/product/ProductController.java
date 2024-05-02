@@ -107,6 +107,7 @@ public class ProductController {
 		Product product = productService.getProduct(prodNo);
 		
 		model.addAttribute("product", product);
+		System.out.println("파일경로는:::"+product.getFileName());
 		
 		if(menu.equals("manage")) {
 			return "forward:/product/updateProductView.jsp";

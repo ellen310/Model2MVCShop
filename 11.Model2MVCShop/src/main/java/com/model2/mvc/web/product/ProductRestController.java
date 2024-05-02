@@ -61,14 +61,14 @@ public class ProductRestController {
 		System.out.println("json/getAutoComplete/"+searchKeyword);
 		
 		return productService.getAutoComplete(searchKeyword);
-	}//end of addProduct
+	}//end of getAutoComplete
 	
 	
 	
 	
 	
 	@RequestMapping( value="json/getScrollData")
-	public Map getAutoComplete(@RequestBody Search search) throws Exception {
+	public Map getScrollData(@RequestBody Search search) throws Exception {
 		
 		System.out.println("json/getScrollData");
 		
@@ -77,11 +77,53 @@ public class ProductRestController {
 		
 		return productService.getProductList(search);
 		
-	}//end of addProduct
+	}//end of getScrollData
+	
+	
+	@RequestMapping(value="rest/listProduct")
+	public String listProduct( @RequestBody Search search) throws Exception{
+		
+		System.out.println("/product/rest/listProduct");
+		
+		if(search.getCurrentPage() ==0 ){
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		// Business logic 수행
+		Map<String , Object> map=productService.getProductList(search);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		// Model 과 View 연결
+//		model.addAttribute("list", map.get("list"));
+//		
+//		if(map.get("productTranList")!=null) {
+//			model.addAttribute("productTranList", map.get("productTranList"));
+//		}
+//		
+//		model.addAttribute("resultPage", resultPage);
+//		model.addAttribute("search", search);
+//		model.addAttribute("menu", menu);
+//		
+		return "forward:/product/listProduct.jsp";
+		
+	}//end of listProduct
 
 	
 	
 	
+	@RequestMapping(value="rest/getProduct")
+	public Product getProduct(@RequestParam("prodNo") String prodNo) throws Exception {
+		
+		System.out.println("받은 prodNo:"+prodNo);
+		return productService.getProduct(Integer.parseInt(prodNo.trim()));
+		
+		
+	
+	
+	}
 	
 	
 }

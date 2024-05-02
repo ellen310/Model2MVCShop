@@ -63,22 +63,35 @@ public class PurchaseController {
 
 	
 	
+//	//@RequestMapping("/addPurchase.do")
+//	@RequestMapping("addPurchase")
+//	public String addPurchase(@ModelAttribute("purchase")Purchase purchase, @RequestParam String prodNo, HttpServletRequest request) throws Exception {
+//		
+//		System.out.println("Controller:: /addPurchase");
+//		
+//		purchase.setPurchaseProd( productService.getProduct(Integer.parseInt(prodNo)) );
+//		purchase.setBuyer( userService.getUser( ((User)request.getSession().getAttribute("user")).getUserId() ) );
+//		purchase.setTranCode("1"); //1: 구매완료/재고없음, 2: 배송중, 3: 배송완료
+//		purchaseService.addPurchase(purchase);
+//
+//		return "forward:/purchase/AddPurchase.jsp";
+//	}
+	
+	
 	//@RequestMapping("/addPurchase.do")
 	@RequestMapping("addPurchase")
-	public String addPurchase(@ModelAttribute("purchase")Purchase purchase, @RequestParam String prodNo, HttpServletRequest request) throws Exception {
+	public String addPurchase(@ModelAttribute("purchase")Purchase purchase, @RequestParam String prodNo, HttpSession session) throws Exception {
 		
 		System.out.println("Controller:: /addPurchase");
 		
 		purchase.setPurchaseProd( productService.getProduct(Integer.parseInt(prodNo)) );
-		purchase.setBuyer( userService.getUser( ((User)request.getSession().getAttribute("user")).getUserId() ) );
+		System.out.println("유저확인"+(User)session.getAttribute("user"));
+		purchase.setBuyer( userService.getUser( ((User)session.getAttribute("user")).getUserId() ) );
 		purchase.setTranCode("1"); //1: 구매완료/재고없음, 2: 배송중, 3: 배송완료
 		purchaseService.addPurchase(purchase);
 
 		return "forward:/purchase/AddPurchase.jsp";
 	}
-	
-	
-	
 	
 	
 	//@RequestMapping("/addPurchaseView.do")
@@ -113,6 +126,48 @@ public class PurchaseController {
 		ModelAndView modelAndview = new ModelAndView();
 		modelAndview.addObject("product",product);
 		modelAndview.addObject("coupons",coupons);	
+		modelAndview.setViewName("forward:/purchase/AddPurchaseView.jsp");
+		
+		return modelAndview;
+	}
+	
+	
+//리액트=>JSP전환하면서 생성된 부분
+	//@RequestMapping("/addPurchaseView.do")
+	@RequestMapping("react/addPurchaseView")
+	public ModelAndView addPurchaseViewReact(@RequestParam("prodNo") String prodNo, @RequestParam("userId") String userId, HttpSession session) throws Exception {
+
+		
+		User dbUser=userService.getUser(userId);
+		session.setAttribute("user", dbUser);		
+		Product product = productService.getProduct(Integer.parseInt(prodNo));
+		
+//		Map<String, String> coupons = new HashMap<String, String>();
+//		coupons.put("userId", ((User)request.getSession().getAttribute("user")).getUserId() );
+//		coupons = purchaseService.checkCoupons(coupons); //쿠폰별 <쿠폰명, 할인율>이 담긴 coupons map. 조건에 맞는 쿠폰들을 모두 map에 담는다.
+//		
+//		//PurchaseView에서 쿠폰을 선택하여 view페이지를 reload한 경우
+//		if(request.getParameter("couponName")!=null) {
+//			
+//			String selectedCoupon = request.getParameter("couponName");
+//			System.out.println(selectedCoupon);
+//			
+//			int discount= Integer.parseInt( coupons.get(request.getParameter("couponName")) );
+//			int price = product.getPrice();
+//			product.setPrice( price *= ( (100-discount)/(float)100 )   );		
+//			
+//			System.out.println("할인율: "+discount+" | 할인상품가격:"+product.getPrice());
+//			
+//		}//컨트롤러는 비즈니스로직 수행하는 곳인데 여기서 처리하는게 맞는지 모르겠다(맞는거 같기도?)
+//		
+//		for (String strKey : coupons.keySet() ) {
+//			 System.out.println("Debugging:: 쿠폰정보");
+//			 System.out.println( strKey+ " : " + coupons.get(strKey));        
+//		 }
+		
+		ModelAndView modelAndview = new ModelAndView();
+		modelAndview.addObject("product",product);
+//		modelAndview.addObject("coupons",coupons);	
 		modelAndview.setViewName("forward:/purchase/AddPurchaseView.jsp");
 		
 		return modelAndview;

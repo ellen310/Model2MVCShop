@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpEntity;
@@ -93,15 +94,16 @@ public class UserRestController {
 	
 	//일반 로그인
 	@RequestMapping( value="json/login", method=RequestMethod.POST )
-	public User login(@RequestBody User user) throws Exception{
+	public User login(@RequestBody User user, HttpSession session) throws Exception{
 		
 		System.out.println("/user/login : POST");
+		
 		
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
 		
 		if( user.getPassword().equals(dbUser.getPassword())){
-			//session.setAttribute("user", dbUser);
+			session.setAttribute("user", dbUser);
 			dbUser.setActive(true);
 		}
 		
